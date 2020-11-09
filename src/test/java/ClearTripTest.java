@@ -15,13 +15,13 @@ public class ClearTripTest extends UiBase {
         CommonUtils.cleanFolder();
     }
     @Test(priority = 1)
-    public void bookFlight() {
-        clearTripUiAction.bookFlight("Bangalore","New Delhi",23,12,2020,"2","1");
+    public void bookFlight() throws InterruptedException {
+        clearTripUiAction.bookFlight("Bangalore","New Delhi","2","1");
 
     }
     @Test(priority = 2,dependsOnMethods = "bookFlight")
     public void searchFlight() {
-
+        clearTripUiAction.searchAndClickOnFlight("sharmaneeraj8988155@gmail.com");
     }
 
     @AfterSuite

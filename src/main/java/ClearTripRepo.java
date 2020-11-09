@@ -43,9 +43,9 @@ public class ClearTripRepo extends UiBase {
     public WebElement clickSearchFlight(){
         return getDriver().findElement(By.cssSelector("#SearchBtn"));
     }
-    public WebElement clickOnBookButton()
+    public List<WebElement> clickOnButton(String text)
     {
-        return getDriver().findElement(By.cssSelector("//button[text()='Book']"));
+        return getDriver().findElements(By.xpath("//button[text()='"+text+"']"));
     }
     public WebElement clickOnContinue(){
         return getDriver().findElement(By.cssSelector("#itineraryBtn"));
@@ -80,6 +80,15 @@ public class ClearTripRepo extends UiBase {
     }
     public WebElement makePayment(){
         return getDriver().findElement(By.cssSelector("#paymentSubmit"));
+    }
+    public List<WebElement> setAccountInfo(String text){
+        return getDriver().findElements(By.cssSelector("input[placeholder='"+text+"']"));
+    }
+    public List<WebElement> selectCheckBox(){
+        return getDriver().findElements(By.cssSelector(".flex.flex-start.p-relative.flex-middle"));
+    }
+    public List<WebElement> setData(){
+        return getDriver().findElements(By.xpath("//div[@class='row']"));
     }
 
 }

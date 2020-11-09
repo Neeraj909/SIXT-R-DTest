@@ -55,7 +55,7 @@ public class UiBase {
 
     public WebDriverWait getWebDriverWait() {
         if (webDriverWait == null) {
-            webDriverWait = new WebDriverWait(getDriver(), 60);
+            webDriverWait = new WebDriverWait(getDriver(), 120);
         }
 
         return webDriverWait;
@@ -63,5 +63,8 @@ public class UiBase {
 
     public Select selectClass(WebElement ele) {
         return new Select(ele);
+    }
+    public static void meditate(int time) throws InterruptedException {
+        Thread.sleep(1000 * time);
     }
 }

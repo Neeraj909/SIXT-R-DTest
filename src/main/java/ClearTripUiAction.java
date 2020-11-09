@@ -1,51 +1,62 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 
-import java.util.UUID;
 
 public class ClearTripUiAction extends ClearTripRepo {
     public static Select select;
-    public void bookFlight(String fromCity, String toCity,int date,int month,int year,String adults,String children) {
+    public void bookFlight(String fromCity, String toCity,String adults,String children) throws InterruptedException {
         getWebDriverWait().until(ExpectedConditions.visibilityOf(clickOnRoundTrip()));
         clickOnRoundTrip().click();
         searchFromCity().clear();
         searchFromCity().sendKeys(fromCity);
+        meditate(5);
         selectFromCityDropDown(fromCity);
         searchToCity().clear();
         searchToCity().sendKeys(toCity);
+        meditate(5);
         selectToCityDropDown(toCity);
         clickOnDateIcon().get(0).click();
-        typeDepartDate(date,month,year);
+        typeDepartDate(23,11,2020);
+        typeDepartDate(25,12,2020);
         select=selectClass(selectAdults());
         select.selectByValue(adults);
         select=selectClass(selectChildren());
         select.selectByValue(children);
     }
-    public void searchAndClickOnFlight(String mailId,String title,String day,String month,String year,String nationality){
+    public void searchAndClickOnFlight(String mailId){
         clickSearchFlight().click();
-        getWebDriverWait().until(ExpectedConditions.visibilityOf(clickOnBookButton()));
-        clickOnBookButton().click();
+        getWebDriverWait().until(ExpectedConditions.visibilityOf( clickOnButton("Book").get(0)));
+        clickOnButton("Book").get(0).click();
         String parentWindow=getDriver().getWindowHandle();
         for (String childWindowHandle : getDriver().getWindowHandles()) {
             if (!childWindowHandle.equals(parentWindow)) {
                 getDriver().switchTo().window(childWindowHandle);
-                clickOnContinue().click();
-                getWebDriverWait().until(ExpectedConditions.visibilityOf(setMailId()));
-                setMailId().clear();
-                setMailId().sendKeys("sharmaneeraj8988155@gmail.com");
-                loginContinue().click();
-                select=selectClass(setPersonTitle());
-                select.selectByValue(title);
-                setFirstName().sendKeys(UUID.randomUUID().toString());
-                setLastName().sendKeys(UUID.randomUUID().toString());
-                setDatePfBirth(day,month,year);
-                selectFromCityDropDown(nationality);
-                clickTravellerButton().click();
-                getWebDriverWait().until(ExpectedConditions.visibilityOf(makePayment()));
-                Assert.assertTrue(makePayment().isDisplayed(),"make payment option is not displayed");
+                clickOnButton("Continue").get(0).click();
+                getWebDriverWait().until(ExpectedConditions.visibilityOf(setAccountInfo("Mobile number").get(0)));
+                setAccountInfo("Mobile number").get(0).sendKeys("1234567890");
+                setAccountInfo("Email address").get(0).sendKeys(mailId);
+                selectCheckBox().get(2).click();
+                clickOnButton("Continue").get(1).click();
+                setAccountInfo("First name").get(0).sendKeys("Neeraj");
+                setAccountInfo("First name").get(1).sendKeys("Anisha");
+                setAccountInfo("First name").get(2).sendKeys("Betu");
+                setAccountInfo("Last name").get(0).sendKeys("Sharma");
+                setAccountInfo("Last name").get(1).sendKeys("Sharma");
+                setAccountInfo("Last name").get(2).sendKeys("Sharma");
+                setAccountInfo("DD / MM / YYYY").get(0).sendKeys("01/01/1992");
+                setAccountInfo("DD / MM / YYYY").get(0).sendKeys("01/01/1992");
+                setAccountInfo("DD / MM / YYYY").get(0).sendKeys("01/01/2010");
+                for(int i=10;i<setData().size();i=i+2){
+                    setData().get(i).findElement(By.xpath(".//div/div/button")).click();
+                    setData().get(i).findElements(By.xpath(".//div/div/div/ul/li")).get(0).click();
+                }
+                for(int i=11;i<setData().size();i=i+2){
+                    setData().get(i).findElement(By.xpath(".//div/div/div/div/input")).sendKeys("India");
+                }
+
+                clickOnButton("Continue to payment").get(0).click();
             }
         }
 
