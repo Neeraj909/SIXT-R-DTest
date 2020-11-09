@@ -1,7 +1,13 @@
+package base;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
@@ -10,26 +16,33 @@ import utills.CommonUtils;
 
 import java.util.concurrent.TimeUnit;
 
-class UiBase {
-    private  WebDriver driver;
-    private static long IMPLICIT_WAIT = 20;
+public class UiBase {
+    private static WebDriver driver;
+    private static final long IMPLICIT_WAIT = 60;
     public WebDriverWait webDriverWait;
-    public  WebDriver getDriver() {
+
+    public static WebDriver getDriver() {
         return driver;
     }
 
-    public void setDriver(WebDriver webDriver) {
+    public static void setDriver(WebDriver webDriver) {
         driver = webDriver;
     }
+
     @BeforeSuite
-    @Parameters({ "browserName", "env" })
-    public void setup(@Optional("chrome") String browserName,String env) {
+    @Parameters({"browserName", "env"})
+    public static void setup(@Optional("chrome") String browserName, String env) {
+
         if (browserName.equals("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--disable-notifications");
             WebDriverManager.chromedriver().setup();
-            setDriver(new ChromeDriver());
+            setDriver(new ChromeDriver(options));
         } else if (browserName.equals("FF")) {
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--disable-notifications");
             WebDriverManager.firefoxdriver().setup();
-            setDriver(new FirefoxDriver());
+            setDriver(new FirefoxDriver(options));
         }
         CommonUtils.setEnv(env);
         getDriver().manage().window().maximize();
@@ -39,11 +52,16 @@ class UiBase {
         getDriver().get(CommonUtils.getEnv().getConfig().getEnvironment().getURL());
 
     }
+
     public WebDriverWait getWebDriverWait() {
         if (webDriverWait == null) {
-            webDriverWait = new WebDriverWait(getDriver(), 30);
+            webDriverWait = new WebDriverWait(getDriver(), 60);
         }
 
         return webDriverWait;
+    }
+
+    public Select selectClass(WebElement ele) {
+        return new Select(ele);
     }
 }

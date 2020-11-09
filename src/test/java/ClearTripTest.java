@@ -1,3 +1,4 @@
+import base.UiBase;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -13,10 +14,13 @@ public class ClearTripTest extends UiBase {
         clearTripUiAction = new ClearTripUiAction();
         CommonUtils.cleanFolder();
     }
-
     @Test(priority = 1)
     public void bookFlight() {
-        clearTripUiAction.clickOnRoundTrip();
+        clearTripUiAction.bookFlight("Bangalore","New Delhi",23,12,2020,"2","1");
+
+    }
+    @Test(priority = 2,dependsOnMethods = "bookFlight")
+    public void searchFlight() {
 
     }
 
