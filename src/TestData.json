@@ -1,0 +1,7 @@
+{
+  "Config": {
+    "Environment": {
+      "URL": "https://www.cleartrip.com/flights"
+    }
+  }
+}
