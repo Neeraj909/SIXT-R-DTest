@@ -19,6 +19,7 @@ public class ClearTripUiAction extends ClearTripRepo {
         selectToCityDropDown(toCity);
         clickOnDateIcon().get(0).click();
         typeDepartDate(23,11,2020);
+        meditate(3);
         typeDepartDate(25,12,2020);
         select=selectClass(selectAdults());
         select.selectByValue(adults);
@@ -46,8 +47,8 @@ public class ClearTripUiAction extends ClearTripRepo {
                 setAccountInfo("Last name").get(1).sendKeys("Sharma");
                 setAccountInfo("Last name").get(2).sendKeys("Sharma");
                 setAccountInfo("DD / MM / YYYY").get(0).sendKeys("01/01/1992");
-                setAccountInfo("DD / MM / YYYY").get(0).sendKeys("01/01/1992");
-                setAccountInfo("DD / MM / YYYY").get(0).sendKeys("01/01/2010");
+                setAccountInfo("DD / MM / YYYY").get(1).sendKeys("01/01/1992");
+                setAccountInfo("DD / MM / YYYY").get(2).sendKeys("01/01/2010");
                 for(int i=10;i<setData().size();i=i+2){
                     setData().get(i).findElement(By.xpath(".//div/div/button")).click();
                     setData().get(i).findElements(By.xpath(".//div/div/div/ul/li")).get(0).click();

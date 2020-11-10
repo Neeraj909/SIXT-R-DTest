@@ -10,7 +10,6 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import report.ExtentManager;
 import report.ExtentTestManager;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
