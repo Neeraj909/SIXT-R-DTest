@@ -13,11 +13,11 @@ public class ClearTripUiAction extends ClearTripRepo {
         searchFromCity().clear();
         searchFromCity().sendKeys(fromCity);
         meditate(5);
-        selectFromCityDropDown(fromCity);
+        selectFromCityDropDown(fromCity," ui-id-1");
         searchToCity().clear();
         searchToCity().sendKeys(toCity);
         meditate(5);
-        selectToCityDropDown(toCity);
+        selectFromCityDropDown(toCity,"ui-id-2");
         clickOnDateIcon().get(0).click();
         typeDepartDate(23,11,2020);
         meditate(3);
@@ -63,7 +63,7 @@ public class ClearTripUiAction extends ClearTripRepo {
         }
 
     }
-    public void searchFlight(){
+    public void searchFlight() throws InterruptedException {
         clickSearchFlight().click();
         getWebDriverWait().until(ExpectedConditions.visibilityOf( clickOnButton("Book").get(0)));
         clickOnButton("Book").get(0).click();
@@ -72,6 +72,7 @@ public class ClearTripUiAction extends ClearTripRepo {
             if (!childWindowHandle.equals(parentWindow)) {
                 getDriver().switchTo().window(childWindowHandle);
                 getWebDriverWait().until(ExpectedConditions.visibilityOf(clickOnContinue()));
+                meditate(3);
                 clickOnContinue().click();
                 getWebDriverWait().until(ExpectedConditions.visibilityOf(loginContinue()));
                 setMailId().sendKeys("sharmaneeraj8988155@gmail.com");
@@ -106,9 +107,9 @@ public class ClearTripUiAction extends ClearTripRepo {
                 setPersonName("AdultLname2").sendKeys("Sharma");
                 setPersonName("ChildFname1").sendKeys("Betu");
                 setPersonName("ChildLname1").sendKeys("Sharma");
-                for(WebElement ele:setAccountInfo("Nationality")){
-                    ele.sendKeys("India");
-                }
+                selectFromCityDropDown("India","ui-id-1");
+                selectFromCityDropDown("India","ui-id-2");
+                selectFromCityDropDown("India","ui-id-3");
                 setPersonName("contact1").sendKeys("1234567890");
                 clickTravellerButton().click();
                 getWebDriverWait().until(ExpectedConditions.visibilityOf(makePayment()));
@@ -119,8 +120,8 @@ public class ClearTripUiAction extends ClearTripRepo {
         }
     }
 
-    public void selectFromCityDropDown(String fromCity) {
-        for (WebElement city : selectFromCity()) {
+    public void selectFromCityDropDown(String fromCity,String id) {
+        for (WebElement city : selectFromCity(id)) {
             if (city.getText().contains(fromCity)) {
                 city.click();
                 break;

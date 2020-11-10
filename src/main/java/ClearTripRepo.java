@@ -13,8 +13,9 @@ public class ClearTripRepo extends UiBase {
     public WebElement clickOnOneWay(){
        return getDriver().findElement(By.cssSelector("#OneWay"));
     }
-    public List<WebElement> selectFromCity(){
-        return getDriver().findElements(By.cssSelector("ul#ui-id-1>li>a"));
+    public List<WebElement> selectFromCity(String id){
+
+        return getDriver().findElements(By.cssSelector("ul[id='"+id+"']>li>a"));
     }
     public List<WebElement> selectToCity(){
         return getDriver().findElements(By.cssSelector("ul#ui-id-2>li>a"));

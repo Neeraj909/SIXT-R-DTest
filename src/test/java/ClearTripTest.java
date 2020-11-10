@@ -25,7 +25,7 @@ public class ClearTripTest extends UiBase {
     }
 
     @Test(priority = 3,dependsOnMethods = "bookFlight")
-    public void searchFlightAndClickOnFlight() {
+    public void searchFlightAndClickOnFlight() throws InterruptedException {
         clearTripUiAction.searchFlight();
     }
 
