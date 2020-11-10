@@ -73,7 +73,7 @@ public class ClearTripUiAction extends ClearTripRepo {
                 getDriver().switchTo().window(childWindowHandle);
                 getWebDriverWait().until(ExpectedConditions.visibilityOf(clickOnContinue()));
                 clickOnContinue().click();
-                getWebDriverWait().until(ExpectedConditions.visibilityOf(clickOnContinue()));
+                getWebDriverWait().until(ExpectedConditions.visibilityOf(loginContinue()));
                 setMailId().sendKeys("sharmaneeraj8988155@gmail.com");
                 loginContinue().click();
                 select=selectClass(setPersonDetail("AdultTitle1"));
