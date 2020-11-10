@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 
 public class ClearTripUiAction extends ClearTripRepo {
@@ -62,14 +63,60 @@ public class ClearTripUiAction extends ClearTripRepo {
         }
 
     }
-    public void setDatePfBirth(String day,String month,String year){
-        select=selectClass(selectDay());
-        select.selectByValue(day);
-        select=selectClass(selectMonth());
-        select.selectByValue(month);
-        select=selectClass(selectYear());
-        select.selectByValue(year);
+    public void searchFlight(){
+        clickSearchFlight().click();
+        getWebDriverWait().until(ExpectedConditions.visibilityOf( clickOnButton("Book").get(0)));
+        clickOnButton("Book").get(0).click();
+        String parentWindow=getDriver().getWindowHandle();
+        for (String childWindowHandle : getDriver().getWindowHandles()) {
+            if (!childWindowHandle.equals(parentWindow)) {
+                getDriver().switchTo().window(childWindowHandle);
+                getWebDriverWait().until(ExpectedConditions.visibilityOf(clickOnContinue()));
+                clickOnContinue().click();
+                getWebDriverWait().until(ExpectedConditions.visibilityOf(clickOnContinue()));
+                setMailId().sendKeys("sharmaneeraj8988155@gmail.com");
+                loginContinue().click();
+                select=selectClass(setPersonDetail("AdultTitle1"));
+                select.selectByVisibleText("Mr");
+                select=selectClass(setPersonDetail("AdultTitle2"));
+                select.selectByVisibleText("Mr");
+                select=selectClass(setPersonDetail("ChildTitle1"));
+                select.selectByVisibleText("Mstr");
+                select=selectClass(setPersonDetail("AdultDobDay1"));
+                select.selectByVisibleText("1");
+                select=selectClass(setPersonDetail("AdultDobMonth1"));
+                select.selectByVisibleText("Jan");
+                select=selectClass(setPersonDetail("AdultDobYear1"));
+                select.selectByVisibleText("1992");
+                select=selectClass(setPersonDetail("AdultDobDay2"));
+                select.selectByVisibleText("1");
+                select=selectClass(setPersonDetail("AdultDobMonth2"));
+                select.selectByVisibleText("Jan");
+                select=selectClass(setPersonDetail("AdultDobYear2"));
+                select.selectByVisibleText("1992");
+                select=selectClass(setPersonDetail("ChildDobDay1"));
+                select.selectByVisibleText("1");
+                select=selectClass(setPersonDetail("ChildDobMonth1"));
+                select.selectByVisibleText("Jan");
+                select=selectClass(setPersonDetail("ChildDobYear1"));
+                select.selectByVisibleText("2010");
+                setPersonName("AdultFname1").sendKeys("Neeraj");
+                setPersonName("AdultFname2").sendKeys("Anisha");
+                setPersonName("AdultLname1").sendKeys("Sharma");
+                setPersonName("AdultLname2").sendKeys("Sharma");
+                setPersonName("ChildFname1").sendKeys("Betu");
+                setPersonName("ChildLname1").sendKeys("Sharma");
+                for(WebElement ele:setAccountInfo("Nationality")){
+                    ele.sendKeys("India");
+                }
+                setPersonName("contact1").sendKeys("1234567890");
+                clickTravellerButton().click();
+                getWebDriverWait().until(ExpectedConditions.visibilityOf(makePayment()));
+                Assert.assertEquals(makePayment().isDisplayed(), true);
 
+
+            }
+        }
     }
 
     public void selectFromCityDropDown(String fromCity) {

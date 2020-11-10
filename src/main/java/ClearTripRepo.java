@@ -56,25 +56,13 @@ public class ClearTripRepo extends UiBase {
     public WebElement loginContinue(){
         return getDriver().findElement(By.cssSelector("#LoginContinueBtn_1"));
     }
-    public WebElement setPersonTitle(){
-        return getDriver().findElement(By.cssSelector("select[name='AdultTitle1']"));
+    public WebElement setPersonDetail(String name){
+        return getDriver().findElement(By.cssSelector("select[name='"+name+"']"));
     }
-    public WebElement setFirstName(){
-        return getDriver().findElement(By.cssSelector("input[name='AdultFname1']"));
-    }
-    public WebElement setLastName(){
-        return getDriver().findElement(By.cssSelector("input[name='AdultLname1']"));
+    public WebElement setPersonName(String name){
+        return getDriver().findElement(By.cssSelector("input[name='"+name+"']"));
     }
 
-    public WebElement selectDay(){
-        return getDriver().findElement(By.cssSelector("#AdultDobDay1"));
-    }
-    public WebElement selectMonth(){
-        return getDriver().findElement(By.cssSelector("#AdultDobMonth1"));
-    }
-    public WebElement selectYear(){
-        return getDriver().findElement(By.cssSelector("#AdultDobYear1"));
-    }
     public WebElement clickTravellerButton(){
         return getDriver().findElement(By.cssSelector("#travellerBtn"));
     }

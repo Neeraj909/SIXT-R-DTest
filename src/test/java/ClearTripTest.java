@@ -19,9 +19,14 @@ public class ClearTripTest extends UiBase {
         clearTripUiAction.bookFlight("Bangalore","New Delhi","2","1");
 
     }
-    @Test(priority = 2,dependsOnMethods = "bookFlight")
+    @Test(priority = 2,dependsOnMethods = "bookFlight",enabled = false)
     public void searchFlight() {
         clearTripUiAction.searchAndClickOnFlight("sharmaneeraj8988155@gmail.com");
+    }
+
+    @Test(priority = 3,dependsOnMethods = "bookFlight")
+    public void searchFlightAndClickOnFlight() {
+        clearTripUiAction.searchFlight();
     }
 
     @AfterSuite
